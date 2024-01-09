@@ -1,0 +1,20 @@
+workflow:
+    rules:
+    - if: $CI_PIPELINE_SOURCE == 'merge_request_event'
+    - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
+
+
+before_script:
+  - apt-get update -qy
+  - apt-get install -y python3-pip
+
+build-job:
+  stage: build
+  script:
+    - pip3 install -r requirements.txt
+
+test-job:
+  stage: test
+  script:
+    - pytest
+
