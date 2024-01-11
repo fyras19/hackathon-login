@@ -16,4 +16,4 @@ build-job:
 test-job:
   stage: test
   script:
-    - python -m pytest
+    - python3 -m pytest
