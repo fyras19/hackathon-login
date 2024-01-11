@@ -3,7 +3,7 @@ workflow:
     - if: $CI_PIPELINE_SOURCE == 'merge_request_event'
     - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
 
-image: public.ecr.aws/docker/library/node:21.3-alpine
+image: public.ecr.aws/ubuntu/ubuntu:22.04
 before_script:
   - apt-get update -qy
   - apt-get install -y python3-pip
