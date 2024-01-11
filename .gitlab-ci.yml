@@ -15,7 +15,5 @@ build-job:
 
 test-job:
   stage: test
-  before_script:
-    - pip3 install pytest
   script:
     - python -m pytest
