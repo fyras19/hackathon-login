@@ -28,26 +28,20 @@ def get_timetable(codeArret, numLigne, sens):
     return requests.get(url)
 
 @app.route('/get_timetable_by_date/<codeArret>/<numLigne>/<sens>/<date>', methods=['GET'])
-def get_timetable(codeArret, numLigne, sens, date):
+def get_timetable_by_date(codeArret, numLigne, sens, date):
     url = basis_url + f'horairesarret.json/{codeArret}/{numLigne}/{sens}/{date}'
     return requests.get(url)
-
 @app.route('/get_waitingtime_by_station/<codeArret>', methods=['GET'])
-def get_timetable(codeArret):
-    url = basis_url + f'tempsattente.json/{codeArret}'
-    return requests.get(url)
-
-@app.route('/get_waitingtime_by_station/<codeArret>', methods=['GET'])
-def get_timetable(codeArret):
+def get_waitingtime_by_station(codeArret):
     url = basis_url + f'tempsattente.json/{codeArret}'
     return requests.get(url)
 @app.route('/get_waitingtime_by_station_and_nbpasses/<codeArret>/<nombrePassages>', methods=['GET'])
-def get_timetable(codeArret, nombrePassages):
+def get_waitingtime_by_station_and_nbpasses(codeArret, nombrePassages):
     url = basis_url + f'tempsattentelieu.json/{codeArret}/{nombrePassages}'
     return requests.get(url)
 
 @app.route('/get_waitingtime_by_station_nbpasses_and_numline/<codeArret>/<nombrePassages>/<numLigne>', methods=['GET'])
-def get_timetable(codeArret, nombrePassages, numLigne):
+def get_waitingtime_by_station_nbpasses_and_numline(codeArret, nombrePassages, numLigne):
     url = basis_url + f'tempsattentelieu.json/{codeArret}/{nombrePassages}/{numLigne}'
     return requests.get(url)
 
