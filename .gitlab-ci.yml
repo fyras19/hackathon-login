@@ -21,10 +21,11 @@ test-job:
 
 build-client:
   stage: build
-  image: public.ecr.aws/lambda/nodejs:20-x86_64
+  image: public.ecr.aws/docker/library/node:lts
   script:
     - npm install
     - npm run build
+    
 test-client-job:
   stage: test
   script:
