@@ -17,4 +17,15 @@ test-job:
   stage: test
   script:
     - pip3 install -r requirements.txt
-    - python3 -m pytest
+    - python3 -m pytest 
+
+build-client:
+  stage: build
+  image: public.ecr.aws/lambda/nodejs:20-x86_64
+  script:
+    - npm install
+    - npm run build
+test-client-job:
+  stage: test
+  script:
+    - echo "testing frontend"
