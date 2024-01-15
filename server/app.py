@@ -3,7 +3,7 @@ from flask import Flask
 from flask import render_template
 from flask import request
 
-app = Flask(__name__)
+app = Flask(__name__, template_folder='dist', static_url_path='', static_folder='dist')
 
 @app.route("/")
 def hello():
