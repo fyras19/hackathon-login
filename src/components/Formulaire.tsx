@@ -7,6 +7,7 @@ type FormulaireProps = {
 
 const PORT = process.env.PORT || 5000;
 const URL = `http://0.0.0.0:${PORT}`;
+const API_URL = process.env.APP_URL ? `https://${process.env.APP_URL}:${PORT}` : URL;
 
 const Formulaire = ({ selection }: FormulaireProps) => {
   const getFormsGroups = (selection: number) => {
@@ -97,7 +98,7 @@ const Formulaire = ({ selection }: FormulaireProps) => {
   const { isPending, isError, error, data } = useQuery({
     queryKey: ["arrets"],
     queryFn: async () => {
-      const result = await fetch(`${URL}/get_all_stations/`);
+      const result = await fetch(`${API_URL}/get_all_stations/`);
       return result.json();
     },
   });
