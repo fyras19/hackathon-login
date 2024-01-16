@@ -5,6 +5,9 @@ type FormulaireProps = {
   selection: number;
 };
 
+const PORT = process.env.PORT || 5000;
+const URL = `http://0.0.0.0:${PORT}`;
+
 const Formulaire = ({ selection }: FormulaireProps) => {
   const getFormsGroups = (selection: number) => {
     switch (selection) {
@@ -94,7 +97,7 @@ const Formulaire = ({ selection }: FormulaireProps) => {
   const { isPending, isError, error, data } = useQuery({
     queryKey: ["arrets"],
     queryFn: async () => {
-      const result = await fetch("https://open.tan.fr/ewp/arrets.json");
+      const result = await fetch(`${URL}/get_all_stations/`);
       return result.json();
     },
   });
