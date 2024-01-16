@@ -19,7 +19,7 @@ const Formulaire = ({ selection }: FormulaireProps) => {
                 <Form.Label>Latitude</Form.Label>
                 <Form.Control
                   type="text"
-                  defaultValue="47,264"
+                  placeholder="47,264"
                   pattern="-?\d+(,\d+)?(\.\d+)?"
                   step="any"
                   required
@@ -33,7 +33,7 @@ const Formulaire = ({ selection }: FormulaireProps) => {
                 <Form.Label>Longitude</Form.Label>
                 <Form.Control
                   type="text"
-                  defaultValue="-1,585"
+                  placeholder="-1,585"
                   pattern="-?\d+(,\d+)?(\.\d+)?"
                   step="any"
                   required
@@ -112,7 +112,7 @@ const Formulaire = ({ selection }: FormulaireProps) => {
   return (
     <Container>
       <Row>
-        <Form onSubmit={(e) => {e.preventDefault(); console.log(data)}}>
+        <Form onSubmit={(e) => { e.preventDefault(); console.log(data) }}>
           {getFormsGroups(selection)}
           <Button className="mt-3" variant="primary" type="submit">
             Submit
