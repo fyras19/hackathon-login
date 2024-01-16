@@ -28,5 +28,7 @@ build-client:
     
 test-client-job:
   stage: test
+  image: public.ecr.aws/docker/library/node:lts
   script:
-    - echo "testing frontend"
+    - npm install
+    - npm run test
