@@ -1,13 +1,12 @@
-import { useQuery } from "@tanstack/react-query";
-import { Button, Col, Container, Form, Row } from "react-bootstrap";
+import { Col, Container, Form, Row } from "react-bootstrap";
+import FormulaireArret from "./Formulaires/Formulaire-Arret";
 
 type FormulaireProps = {
   selection: number;
 };
 
-const URL = `https://hackathon-login.osc-fr1.scalingo.io`;
-
 const Formulaire = ({ selection }: FormulaireProps) => {
+
   const getFormsGroups = (selection: number) => {
     switch (selection) {
       case 0:
@@ -19,7 +18,7 @@ const Formulaire = ({ selection }: FormulaireProps) => {
                 <Form.Label>Latitude</Form.Label>
                 <Form.Control
                   type="text"
-                  placeholder="47,264"
+                  defaultValue="47,264"
                   pattern="-?\d+(,\d+)?(\.\d+)?"
                   step="any"
                   required
@@ -33,7 +32,7 @@ const Formulaire = ({ selection }: FormulaireProps) => {
                 <Form.Label>Longitude</Form.Label>
                 <Form.Control
                   type="text"
-                  placeholder="-1,585"
+                  defaultValue="-1,585"
                   pattern="-?\d+(,\d+)?(\.\d+)?"
                   step="any"
                   required
@@ -46,11 +45,7 @@ const Formulaire = ({ selection }: FormulaireProps) => {
           </>
         );
       case 1:
-        return (
-          <>
-            <h1>Liste de tous les arrêts</h1>
-          </>
-        );
+        return <FormulaireArret />;
       case 2:
         return (
           <>
@@ -93,31 +88,10 @@ const Formulaire = ({ selection }: FormulaireProps) => {
     }
   };
 
-  const { isPending, isError, error, data } = useQuery({
-    queryKey: ["arrets"],
-    queryFn: async () => {
-      const result = await fetch(`${URL}/get_all_stations/`);
-      return result.json();
-    },
-  });
-
-  if (isPending) return <p>Loading...</p>;
-  else if (isError)
-    return (
-      <p>
-        Error fetching data: {error.name} - {error.message}
-      </p>
-    );
-
   return (
     <Container>
       <Row>
-        <Form onSubmit={(e) => { e.preventDefault(); console.log(data) }}>
           {getFormsGroups(selection)}
-          <Button className="mt-3" variant="primary" type="submit">
-            Submit
-          </Button>
-        </Form>
       </Row>
     </Container>
   );
