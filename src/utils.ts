@@ -1,5 +1,6 @@
 import axios from "axios";
 import { Arret } from "./models/Arret.model";
+import { Horaire } from "./models/Horaire.model";
 
 const URL = `https://hackathon-login.osc-fr1.scalingo.io`;
 
@@ -23,4 +24,18 @@ export const getStopsPaginated = (data: Arret[], page: number, filter: string = 
 export const getStops = async () => {
     const result = await axios.get<Omit<Arret, "id">[]>(`${URL}/get_all_stations/`);
     return result.data.map((arret, i) => { return { ...arret, id: i } as Arret });
+}
+
+export const getNearbyStops = async (latitude: string, longitude: string) => {
+    const result = await axios.get<Omit<Arret, "id">[]>(`${URL}/get_nearest_stations/${latitude}/${longitude}`);
+    return result.data.map((arret, i) => { return { ...arret, id: i } as Arret })
+}
+
+export const getHoraires = async (codeArret: string, numLigne: string, sense: "1" | "2", date?: string) => {
+    if (!date) {
+        const result = await axios.get<Horaire>(`${URL}/get_timetable/${codeArret}/${numLigne}/${sense}`);
+        return result.data;
+    }
+    const result = await axios.get<Horaire>(`${URL}/get_timetable_by_date/${codeArret}/${numLigne}/${sense}/${date}`);
+    return result.data;
 }
