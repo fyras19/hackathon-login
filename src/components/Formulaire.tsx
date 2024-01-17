@@ -1,51 +1,18 @@
 import { Col, Container, Form, Row } from "react-bootstrap";
-import FormulaireArret from "./Formulaires/Formulaire-Arret";
+import FormArret from "./Forms/Form-Arret";
+import FormArretProche from "./Forms/Form-Arret-Proche";
 
 type FormulaireProps = {
   selection: number;
 };
 
 const Formulaire = ({ selection }: FormulaireProps) => {
-
   const getFormsGroups = (selection: number) => {
     switch (selection) {
       case 0:
-        return (
-          <>
-            <h1>Recherche arrêts proches d'une latitude/longitude</h1>
-            <Col xs={4}>
-              <Form.Group className="mb-3" controlId="formLatitude">
-                <Form.Label>Latitude</Form.Label>
-                <Form.Control
-                  type="text"
-                  defaultValue="47,264"
-                  pattern="-?\d+(,\d+)?(\.\d+)?"
-                  step="any"
-                  required
-                />
-                <Form.Text className="text-muted">
-                  Doit être un nombre décimal ex "47,264"
-                </Form.Text>
-              </Form.Group>
-
-              <Form.Group className="mb-3" controlId="formLongitude">
-                <Form.Label>Longitude</Form.Label>
-                <Form.Control
-                  type="text"
-                  defaultValue="-1,585"
-                  pattern="-?\d+(,\d+)?(\.\d+)?"
-                  step="any"
-                  required
-                />
-                <Form.Text className="text-muted">
-                  Doit être un nombre décimal ex "-1,585"
-                </Form.Text>
-              </Form.Group>
-            </Col>
-          </>
-        );
+        return <FormArretProche />;
       case 1:
-        return <FormulaireArret />;
+        return <FormArret />;
       case 2:
         return (
           <>
@@ -90,9 +57,7 @@ const Formulaire = ({ selection }: FormulaireProps) => {
 
   return (
     <Container>
-      <Row>
-          {getFormsGroups(selection)}
-      </Row>
+      <Row>{getFormsGroups(selection)}</Row>
     </Container>
   );
 };

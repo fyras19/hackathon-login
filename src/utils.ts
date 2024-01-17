@@ -24,3 +24,8 @@ export const getStops = async () => {
     const result = await axios.get<Omit<Arret, "id">[]>(`${URL}/get_all_stations/`);
     return result.data.map((arret, i) => { return { ...arret, id: i } as Arret });
 }
+
+export const getNearbyStops = async (latitude: string, longitude: string) => {
+    const result = await axios.get<Omit<Arret, "id">[]>(`${URL}/get_nearest_stations/${latitude}/${longitude}`);
+    return result.data.map((arret, i) => { return { ...arret, id: i } as Arret })
+}
