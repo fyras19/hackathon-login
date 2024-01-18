@@ -1,16 +1,16 @@
 export type Horaire = {
     "ligne": {
         "numLigne": string,
-        "typeligne": 0,
+        "typeligne": number,
         "directionSens1": string,
         "directionSens2": string,
         "accessible": string,
-        "etatTrafic": 0
+        "etatTrafic": number
     },
     "arret": {
         "codeArret": string,
         "libelle": string,
-        "accessible": true
+        "accessible": boolean
     },
     "codeCouleur": string,
     "notes": [

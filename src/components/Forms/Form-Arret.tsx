@@ -47,7 +47,10 @@ const FormArret = () => {
           className="mt-1"
           variant="primary"
           type="reset"
-          onClick={() => setShowResult(false)}
+          onClick={() => {
+            setFilter("");
+            setShowResult(false);
+          }}
         >
           Clear
         </Button>

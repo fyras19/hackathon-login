@@ -13,7 +13,7 @@ const Sidebar = ({ setSelection }: SidebarProps) => {
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="flex-row">
             <NavDropdown
-              title="Temps d'attente"
+              title="Arrêts"
               id="temps-dattente-dropdown"
               className="flex-column"
             >

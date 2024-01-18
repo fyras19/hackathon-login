@@ -1,6 +1,7 @@
 import axios from "axios";
 import { Arret } from "./models/Arret.model";
 import { Horaire } from "./models/Horaire.model";
+import { RemainingTime } from "./models/RemainingTime.model";
 
 const URL = `https://hackathon-login.osc-fr1.scalingo.io`;
 
@@ -38,4 +39,9 @@ export const getHoraires = async (codeArret: string, numLigne: string, sense: "1
     }
     const result = await axios.get<Horaire>(`${URL}/get_timetable_by_date/${codeArret}/${numLigne}/${sense}/${date}`);
     return result.data;
+}
+
+export const getWaitingTime = async (codeArret: string) => {
+    const result = await axios.get<Omit<RemainingTime, "id">[]>(`${URL}/get_waitingtime_by_station/${codeArret}`);
+    return result.data.map((time, i) => { return { ...time, id: i } as RemainingTime });
 }
