@@ -1,51 +1,57 @@
-import { Container, Nav, NavDropdown, Navbar } from "react-bootstrap";
-import { useAppDispatch } from "../hooks";
-import { setSelection } from "../slices/selectionSlice";
-import { Link } from "react-router-dom";
+import {
+  Button,
+  Container,
+  Form,
+  Nav,
+  NavDropdown,
+  Navbar,
+} from "react-bootstrap";
 
 import "../App.css";
+import { Link } from "react-router-dom";
 
-/* type SidebarProps = {
-  setSelection: React.Dispatch<React.SetStateAction<number>>;
-}; */
-
-const CustomNavbar = (/* { setSelection }: SidebarProps */) => {
-  const dispatch = useAppDispatch();
-
+const CustomNavbar = () => {
   return (
     <Navbar bg="light" expand="lg" className="flex-column">
       <Container>
         <Navbar.Brand>
-          <Link to={"/"}>HACKATHON LOGIN</Link>
+          <Link to={"/"}>Hackathon LOGIN</Link>
         </Navbar.Brand>
-        <Navbar.Toggle aria-controls="basic-navbar-nav" />
-        <Navbar.Collapse id="basic-navbar-nav">
-          <Nav className="flex-row">
+        <Navbar.Toggle aria-controls="navbarScroll" />
+        <Navbar.Collapse id="navbarScroll" className="justify-content-end">
+          <Nav style={{ maxHeight: "100px" }} navbarScroll>
+            <Form className="d-flex mx-1">
+              <Form.Control
+                type="search"
+                placeholder="Rechercher"
+                className="me-2"
+                aria-label="Search"
+              />
+              <Button variant="outline-primary">Rechercher</Button>
+            </Form>
+            <Nav.Link className="mx-1" href="#action1">
+              <Link to={"/"}>Acceuil</Link>
+            </Nav.Link>
+            <Nav.Link className="mx-1" href="#action2">
+              <Link to={"/aboutus"}>Concept</Link>
+            </Nav.Link>
+            <Nav.Link className="mx-1" href="#action3">
+              <Link to={"/events"}>Evènements</Link>
+            </Nav.Link>
             <NavDropdown
-              title="Arrêts"
-              id="temps-dattente-dropdown"
-              className="flex-column"
+              className="mx-1"
+              title="Utilisateur"
+              id="navbarScrollingDropdown"
             >
-              <NavDropdown.Item onClick={() => dispatch(setSelection(0))}>
-                <Link to={"/"}>Arrêts proches</Link>
-              </NavDropdown.Item>
-              <NavDropdown.Item onClick={() => dispatch(setSelection(1))}>
-                <Link to={"/"}>Tous les arrêts</Link>
-              </NavDropdown.Item>
-              <NavDropdown.Item onClick={() => dispatch(setSelection(2))}>
-                <Link to={"/"}>Horaires théoriques</Link>
+              <NavDropdown.Item>
+                <Link to={"/login"}>Se connecter</Link>
               </NavDropdown.Item>
               <NavDropdown.Item>
-                <Link to={"aboutus"}>About us</Link>
+                <Link to={"/register"}>Créer un compte</Link>
               </NavDropdown.Item>
-            </NavDropdown>
-            <NavDropdown
-              title="Temps d'attente"
-              id="temps-dattente-dropdown"
-              className="flex-column"
-            >
-              <NavDropdown.Item onClick={() => dispatch(setSelection(3))}>
-                <Link to={"/"}>Pour un arrêt</Link>
+              <NavDropdown.Divider />
+              <NavDropdown.Item>
+                <Link to={"/myevents"}>Mes évènements</Link>
               </NavDropdown.Item>
             </NavDropdown>
           </Nav>
