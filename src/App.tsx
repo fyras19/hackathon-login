@@ -1,17 +1,14 @@
-import Sidebar from "./components/Sidebar";
-import { useState } from "react";
-import Formulaire from "./components/Formulaire";
+import { Outlet } from "react-router-dom";
+import CustomNavbar from "./components/CustomNavbar";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 
 const queryClient = new QueryClient();
 
 function App() {
-  const [selection, setSelection] = useState(1);
-
   return (
     <QueryClientProvider client={queryClient}>
-      <Sidebar setSelection={setSelection} />
-      <Formulaire selection={selection} />
+      <CustomNavbar />
+      <Outlet />
     </QueryClientProvider>
   );
 }
