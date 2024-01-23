@@ -8,7 +8,7 @@ import {
 } from "react-bootstrap";
 
 import "../App.css";
-import { Link } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 
 const CustomNavbar = () => {
   return (
@@ -26,32 +26,39 @@ const CustomNavbar = () => {
                 placeholder="Rechercher"
                 className="me-2"
                 aria-label="Search"
+                id="navbar-search"
               />
               <Button variant="outline-primary">Rechercher</Button>
             </Form>
-            <Nav.Link className="mx-1" href="#action1">
-              <Link to={"/"}>Acceuil</Link>
-            </Nav.Link>
-            <Nav.Link className="mx-1" href="#action2">
-              <Link to={"/aboutus"}>Concept</Link>
-            </Nav.Link>
-            <Nav.Link className="mx-1" href="#action3">
-              <Link to={"/events"}>Evènements</Link>
-            </Nav.Link>
+            <NavLink className="mx-1 nav-link" to={"/"}>
+              Acceuil
+            </NavLink>
+            <NavLink className="mx-1 nav-link" to={"/aboutus"}>
+              Concept
+            </NavLink>
+            <NavLink className="mx-1 nav-link" to={"/events"}>
+              Evènements
+            </NavLink>
             <NavDropdown
               className="mx-1"
               title="Utilisateur"
               id="navbarScrollingDropdown"
             >
               <NavDropdown.Item>
-                <Link to={"/login"}>Se connecter</Link>
-              </NavDropdown.Item>
-              <NavDropdown.Item>
-                <Link to={"/register"}>Créer un compte</Link>
+                <NavLink to={"/myevents"} className="nav-link">
+                  Mes évènements
+                </NavLink>
               </NavDropdown.Item>
               <NavDropdown.Divider />
               <NavDropdown.Item>
-                <Link to={"/myevents"}>Mes évènements</Link>
+                <NavLink to={"/login"} className="nav-link">
+                  Se connecter
+                </NavLink>
+              </NavDropdown.Item>
+              <NavDropdown.Item>
+                <NavLink to={"/register"} className="nav-link">
+                  Créer un compte
+                </NavLink>
               </NavDropdown.Item>
             </NavDropdown>
           </Nav>
