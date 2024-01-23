@@ -31,3 +31,4 @@ instance/*
 .idea
 .pytest_cache
 tests/__pycache__
+server/__pycahce__
