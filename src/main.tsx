@@ -5,6 +5,7 @@ import { Provider } from "react-redux";
 import { store } from "./store.ts";
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
 import Accueil from "./components/Accueil.tsx";
+import EventsPage from "./components/EventsPage.tsx";
 
 const router = createBrowserRouter([
   {
@@ -25,11 +26,7 @@ const router = createBrowserRouter([
       },
       {
         path: "/events",
-        element: (
-          <>
-            <h1>Evènements</h1>
-          </>
-        ),
+        element: <EventsPage />,
       },
       {
         path: "/login",
