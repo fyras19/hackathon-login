@@ -2,8 +2,20 @@ import axios from "axios";
 import { Arret } from "./models/Arret.model";
 import { Horaire } from "./models/Horaire.model";
 import { RemainingTime } from "./models/RemainingTime.model";
+import { EventsResponse } from "./models/Event.model";
 
 const URL = `https://hackathon-login.osc-fr1.scalingo.io`;
+
+export const getEvents = async (limit: number, page: number) => {
+    const offset = (page-1) * limit;
+    const result = await axios.get<EventsResponse>(`https://data.nantesmetropole.fr/api/explore/v2.1/catalog/datasets/244400404_agenda-evenements-nantes-nantes-metropole/records?limit=${limit}&offset=${offset}`);
+    const hasNext = offset + limit < result.data.total_count;
+    return {
+        nextPage: hasNext ? page + 1 : undefined,
+        previousPage: page > 1 ? page : undefined,
+        events: result.data.results
+    }
+}
 
 export const getPaginated = (data: Array<object>, page: number) => {
     const hasNext = page * 10 < data.length;

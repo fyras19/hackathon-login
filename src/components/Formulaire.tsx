@@ -3,12 +3,14 @@ import FormArret from "./Forms/Form-Arret";
 import FormArretProche from "./Forms/Form-Arret-Proche";
 import FormHoraire from "./Forms/Form-Horaire";
 import FormWaitingTime from "./Forms/Form-Waiting-Time";
+import { useAppSelector } from "../hooks";
 
-type FormulaireProps = {
+/* type FormulaireProps = {
   selection: number;
-};
+}; */
 
-const Formulaire = ({ selection }: FormulaireProps) => {
+const Formulaire = (/* { selection }: FormulaireProps */) => {
+  const selection = useAppSelector(state => state.selection.selection);
   const getFormsGroups = (selection: number) => {
     switch (selection) {
       case 0:
