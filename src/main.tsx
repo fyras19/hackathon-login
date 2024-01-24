@@ -2,10 +2,10 @@ import React from "react";
 import ReactDOM from "react-dom/client";
 import App from "./App.tsx";
 import { Provider } from "react-redux";
-import { store } from "./store.ts";
+import { store } from "./redux/store.ts";
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
-import Accueil from "./components/Accueil.tsx";
-import EventsPage from "./components/EventsPage.tsx";
+import HomePage from "./pages/HomePage.tsx";
+import EventsPage from "./pages/EventsPage.tsx";
 
 const router = createBrowserRouter([
   {
@@ -22,7 +22,7 @@ const router = createBrowserRouter([
       },
       {
         path: "/",
-        element: <Accueil />,
+        element: <HomePage />,
       },
       {
         path: "/events",

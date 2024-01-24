@@ -7,7 +7,7 @@ import {
   Navbar,
 } from "react-bootstrap";
 
-import "../App.css";
+import "../../App.css";
 import { Link, NavLink } from "react-router-dom";
 
 const CustomNavbar = () => {

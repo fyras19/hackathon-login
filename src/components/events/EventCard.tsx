@@ -1,5 +1,5 @@
 import { Button, Card } from "react-bootstrap";
-import { Event } from "../models/Event.model";
+import { Event } from "../../models/Event.model";
 
 type EventCardProps = {
   event: Event;

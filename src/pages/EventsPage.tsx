@@ -1,4 +1,4 @@
-import EventsList from "./EventsList";
+import EventsList from "../components/events/EventsList";
 import { useInView } from "react-intersection-observer";
 import { Button } from "react-bootstrap";
 import { useEffect } from "react";

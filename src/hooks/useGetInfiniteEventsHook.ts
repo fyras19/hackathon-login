@@ -1,5 +1,5 @@
 import { useInfiniteQuery } from "@tanstack/react-query";
-import { getEvents } from "../utils";
+import { getEvents } from "../api/eventsAPI";
 
 export const useGetInfiniteEvents = () => {
     return useInfiniteQuery({
