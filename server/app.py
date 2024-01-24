@@ -89,6 +89,23 @@ def get_filtered_events():
         # Return an error message if the request was not successful
         return jsonify({"error": "Failed to fetch events from the API"}), 500
 
+@app.route('/get_event_by_id/<id>', methods=['GET'])
+def get_event_by_id(id):
+    param_list = id.split("_")
+    id_manif = int(param_list[0])
+    date= param_list[1]
+    heure = param_list[2]
+    url = basis_url + f"records?where=id_manif%3D{id_manif}%20and%20date%3Ddate'{date}'%20and%20heure_debut%3D'{heure}'"
+    print(url)
+    api_response = requests.get(url)
+
+    # Check if the request was successful (status code 200)
+    if api_response.status_code == 200:
+        # Return the filtered events in JSON format
+        return make_response(jsonify(api_response.json()),200)
+    else:
+        # Return an error message if the request was not successful
+        return jsonify({"error": "Failed to fetch events from the API"}), 500
 
 if __name__ == "__main__":
     port = int(os.environ.get("PORT", 5000))
