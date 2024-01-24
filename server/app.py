@@ -70,8 +70,15 @@ def get_filtered_events():
     # Get the JSON data from the request body
     filters = request.json.get('filters', {})
 
+
     # Build the API query parameters based on the provided filters
     query_params = [('offset', offset), ('limit', limit)]
+    body = request.json
+    print(body)
+    if (body["order_by"]) :
+        query_params.append(('order_by', body["order_by"]))
+    if (body["only_upcoming_events"]) :
+        query_params.append(('where', 'date >= now()'))
     for filter in filters:
         for filter_name, filter_values in filter.items():
             for filter_value in filter_values:
