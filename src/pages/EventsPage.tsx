@@ -30,8 +30,6 @@ export default function EventsPage() {
     return { label: filter.label, options: [] };
   });
 
-  console.log(initialFilters);
-
   const [selectedFilters, setSelectedFilters] =
     useState<Filter[]>(initialFilters);
 

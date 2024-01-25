@@ -29,21 +29,21 @@ export const getEventById = async (eventId: string) => {
 }
 
 export const getThemes = async () => {
-    const result = await API.get<string[]>('/get_theme');
+    const result = await API.get<string[]>('/get_theme/');
     return result.data;
 }
 
 export const getCities = async () => {
-    const result = await API.get<string[]>('/get_city');
+    const result = await API.get<string[]>('/get_city/');
     return result.data;
 }
 
 export const getOrganizers = async () => {
-    const result = await API.get<string[]>('/get_organizer');
+    const result = await API.get<string[]>('/get_organizer/');
     return result.data;
 }
 
 export const getHoods = async () => {
-    const result = await API.get<string[]>('/get_hood');
+    const result = await API.get<string[]>('/get_hood/');
     return result.data;
 }

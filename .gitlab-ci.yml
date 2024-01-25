@@ -21,14 +21,14 @@ test-job:
 
 build-client:
   stage: build
-  image: public.ecr.aws/docker/library/node:lts
+  image: node:lts-alpine
   script:
     - npm install
     - npm run build
     
 test-client-job:
   stage: test
-  image: public.ecr.aws/docker/library/node:lts
+  image: node:lts-alpine
   script:
     - npm install
     - npm run test
