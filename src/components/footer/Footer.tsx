@@ -29,7 +29,7 @@ export default function Footer() {
           <h5>Contact</h5>
           <h5>Feedback</h5>
           <h5>Conditions générales</h5>
-          <h5>Politique de ...</h5>
+          <h5>Politique de confidentialité</h5>
         </Col>
       </Row>
     </Container>
