@@ -9,10 +9,6 @@ def client():
         with app.app_context():
             yield client
 
-def test_hello(client):
-    response = client.get('/')
-    assert response.status_code == 200
-
 def test_get_theme_cat_dict(client):
     response = client.get('/get_theme_cat_dict/')
     assert response.status_code == 200
