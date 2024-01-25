@@ -17,7 +17,6 @@ with app.app_context():
 @app.route("/")
 def hello():
     return render_template('index.html')
-
 @app.route('/get_theme_cat_dict/', methods=['GET'])
 def get_theme_categ_dict():
     return make_response(theme_cat_dict, 200)
@@ -102,8 +101,13 @@ def get_event_by_id(id):
     id_manif = int(param_list[0])
     date= param_list[1]
     heure = param_list[2]
-    url = basis_url + f"records?where=id_manif%3D{id_manif}%20and%20date%3Ddate'{date}'%20and%20heure_debut%3D'{heure}'"
-    print(url)
+    condition = ""
+    if heure != "null"  :
+        condition = f"%3D'{heure}'"
+    else :
+        condition = "%20is%20null"
+    url = basis_url + f"records?where=id_manif%3D{id_manif}%20and%20date%3Ddate'{date}'%20and%20heure_debut"
+    url += condition
     api_response = requests.get(url)
 
     # Check if the request was successful (status code 200)
