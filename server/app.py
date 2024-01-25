@@ -118,6 +118,29 @@ def get_event_by_id(id):
         # Return an error message if the request was not successful
         return jsonify({"error": "Failed to fetch events from the API"}), 500
 
+@app.route('/get_adresse_postale/', methods=['GET'])
+def get_adresse_postale():
+    lon = request.args.get('lon', type=float, default=0)
+    lat = request.args.get('lat', type=float, default=0)
+    if lat==0 or lon==0 :
+        return jsonify({"error": "Invalid Params"}), 400
+
+    url = f"https://api-adresse.data.gouv.fr/reverse/?lon={lon}&lat={lat}"
+    api_response = requests.get(url)
+    # Check if the request was successful (status code 200)
+    if api_response.status_code == 200:
+        # Return the filtered events in JSON format
+        res = api_response.json()
+        if res["features"] and len(res["features"])>0 :
+            all_info = res["features"][0]
+            adresse = all_info["properties"]["label"]
+            return adresse, 200
+        else:
+            return jsonify({"error": "Cannot fetch information"}), 500
+    else:
+        # Return an error message if the request was not successful
+        return jsonify({"error": "Failed to fetch information from the API"}), 500
+
 if __name__ == "__main__":
     port = int(os.environ.get("PORT", 5000))
     app.run(host='0.0.0.0', port=port)
