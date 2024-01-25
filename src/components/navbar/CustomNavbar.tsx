@@ -8,9 +8,10 @@ import {
 } from "react-bootstrap";
 
 import "../../App.css";
-import { Link, NavLink } from "react-router-dom";
+import { Link, NavLink, useNavigate } from "react-router-dom";
 
 const CustomNavbar = () => {
+  const navigate = useNavigate();
   return (
     <Navbar bg="light" expand="lg" className="flex-column">
       <Container>
@@ -44,21 +45,15 @@ const CustomNavbar = () => {
               title="Utilisateur"
               id="navbarScrollingDropdown"
             >
-              <NavDropdown.Item>
-                <NavLink to={"/myevents"} className="nav-link">
-                  Mes évènements
-                </NavLink>
+              <NavDropdown.Item onClick={() => navigate("/myevents")}>
+                Mes évènements
               </NavDropdown.Item>
               <NavDropdown.Divider />
-              <NavDropdown.Item>
-                <NavLink to={"/login"} className="nav-link">
-                  Se connecter
-                </NavLink>
+              <NavDropdown.Item onClick={() => navigate("/login")}>
+                Se connecter
               </NavDropdown.Item>
-              <NavDropdown.Item>
-                <NavLink to={"/register"} className="nav-link">
-                  Créer un compte
-                </NavLink>
+              <NavDropdown.Item onClick={() => navigate("/register")}>
+                Créer un compte
               </NavDropdown.Item>
             </NavDropdown>
           </Nav>

@@ -10,8 +10,9 @@ export default function EventsList({ events }: EventsListProps) {
   return (
     <Row>
       {events.map((event) => {
+        const eventId = `${event.id_manif}_${event.date}_${event.heure_debut}`;
         return (
-          <Col sm={4} className="py-1" key={event.id_manif}>
+          <Col sm={4} className="py-1" key={eventId}>
             <EventCard event={event} />
           </Col>
         );

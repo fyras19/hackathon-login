@@ -6,6 +6,7 @@ import { store } from "./redux/store.ts";
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
 import HomePage from "./pages/HomePage.tsx";
 import EventsPage from "./pages/EventsPage.tsx";
+import EventPage from "./pages/EventPage.tsx";
 
 const router = createBrowserRouter([
   {
@@ -27,6 +28,10 @@ const router = createBrowserRouter([
       {
         path: "/events",
         element: <EventsPage />,
+      },
+      {
+        path: "/events/:eventId",
+        element: <EventPage />,
       },
       {
         path: "/login",
