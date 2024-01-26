@@ -8,9 +8,10 @@ import {
 } from "react-bootstrap";
 
 import "../../App.css";
-import { Link, NavLink, useNavigate } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "../../redux/hooks";
 import { logout } from "../../redux/slices/authSlice";
+import logoEventopia from "../../assets/EventopiaBlancCropped.png";
 
 const CustomNavbar = () => {
   const navigate = useNavigate();
@@ -20,7 +21,14 @@ const CustomNavbar = () => {
     <Navbar bg="light" expand="lg" className="flex-column">
       <Container>
         <Navbar.Brand>
-          <Link to={"/"}>Hackathon LOGIN</Link>
+          <img
+            src={logoEventopia}
+            width="120"
+            className="d-inline-block align-center"
+            alt="React Bootstrap logo"
+            onClick={() => navigate("/")}
+            style={{ cursor: "pointer" }}
+          />
         </Navbar.Brand>
         <Navbar.Toggle aria-controls="navbarScroll" />
         <Navbar.Collapse id="navbarScroll" className="justify-content-end">

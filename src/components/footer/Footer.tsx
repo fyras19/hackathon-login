@@ -1,11 +1,12 @@
-import { Col, Container, Row } from "react-bootstrap";
+import { Col, Container, Image, Row } from "react-bootstrap";
+import LogoEventopia from "../../assets/EventopiaBlancCropped.png";
 
 export default function Footer() {
   return (
     <Container className="p-5 text-center bg-body-tertiary rounded-3" fluid>
       <Row>
         <Col>
-          <h4>Hackathon Login</h4>
+          <Image src={LogoEventopia} fluid />;
         </Col>
         <Col>
           <h5>A propos de nous</h5>
