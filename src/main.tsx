@@ -7,6 +7,8 @@ import { RouterProvider, createBrowserRouter } from "react-router-dom";
 import HomePage from "./pages/HomePage.tsx";
 import EventsPage from "./pages/EventsPage.tsx";
 import EventPage from "./pages/EventPage.tsx";
+import LoginPage from "./pages/LoginPage.tsx";
+import RegisterPage from "./pages/RegisterPage.tsx";
 
 const router = createBrowserRouter([
   {
@@ -35,19 +37,11 @@ const router = createBrowserRouter([
       },
       {
         path: "/login",
-        element: (
-          <>
-            <h1>Se connecter</h1>
-          </>
-        ),
+        element: <LoginPage />,
       },
       {
         path: "/register",
-        element: (
-          <>
-            <h1>Créer un compte</h1>
-          </>
-        ),
+        element: <RegisterPage />,
       },
       {
         path: "/myevents",

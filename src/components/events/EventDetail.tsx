@@ -2,6 +2,7 @@ import { Button, Figure } from "react-bootstrap";
 import { Event } from "../../models/Event.model";
 import { useState } from "react";
 import EventParticipationModal from "./EventParticipationModal";
+import { useAppSelector } from "../../redux/hooks";
 
 type EventDetailProps = {
   event: Event;
@@ -13,12 +14,18 @@ export default function EventDetail({ event }: EventDetailProps) {
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
 
+  const { isAuthenticated } = useAppSelector((state) => state.auth);
+
   return (
     <div className="d-flex flex-column align-items-center px-5">
       <h1>{event.nom}</h1>
       <Figure.Image src={event.media_url} />
-      <Button className="mb-1">Voir participants</Button>
-      <Button onClick={handleShow}>Je participe</Button>
+      <Button className="mb-1" disabled={!isAuthenticated}>
+        Voir participants
+      </Button>
+      <Button onClick={handleShow} disabled={!isAuthenticated}>
+        Je participe
+      </Button>
       <EventParticipationModal
         show={show}
         handleClose={handleClose}

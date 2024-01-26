@@ -9,9 +9,13 @@ import {
 
 import "../../App.css";
 import { Link, NavLink, useNavigate } from "react-router-dom";
+import { useAppDispatch, useAppSelector } from "../../redux/hooks";
+import { logout } from "../../redux/slices/authSlice";
 
 const CustomNavbar = () => {
   const navigate = useNavigate();
+  const { isAuthenticated, username } = useAppSelector((state) => state.auth);
+  const dispatch = useAppDispatch();
   return (
     <Navbar bg="light" expand="lg" className="flex-column">
       <Container>
@@ -42,19 +46,28 @@ const CustomNavbar = () => {
             </NavLink>
             <NavDropdown
               className="mx-1"
-              title="Utilisateur"
+              title={isAuthenticated ? username : "Utilisateur"}
               id="navbarScrollingDropdown"
             >
               <NavDropdown.Item onClick={() => navigate("/myevents")}>
                 Mes évènements
               </NavDropdown.Item>
               <NavDropdown.Divider />
-              <NavDropdown.Item onClick={() => navigate("/login")}>
-                Se connecter
-              </NavDropdown.Item>
-              <NavDropdown.Item onClick={() => navigate("/register")}>
-                Créer un compte
-              </NavDropdown.Item>
+              {!isAuthenticated && (
+                <>
+                  <NavDropdown.Item onClick={() => navigate("/login")}>
+                    Se connecter
+                  </NavDropdown.Item>
+                  <NavDropdown.Item onClick={() => navigate("/register")}>
+                    Créer un compte
+                  </NavDropdown.Item>
+                </>
+              )}
+              {isAuthenticated && (
+                <NavDropdown.Item onClick={() => dispatch(logout())}>
+                  Se déconnecter
+                </NavDropdown.Item>
+              )}
             </NavDropdown>
           </Nav>
         </Navbar.Collapse>
