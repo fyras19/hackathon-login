@@ -1,6 +1,14 @@
 import { Button, FloatingLabel, Form, Modal } from "react-bootstrap";
 import { Event } from "../../models/Event.model";
 import { useState } from "react";
+import { useAppDispatch, useAppSelector } from "../../redux/hooks";
+import {
+  participateAndDisallowShare,
+  participateAndShareOtherCar,
+  participateAndTakeOwnCar,
+  participateOnTheirOwn,
+} from "../../redux/slices/eventsSlice";
+import { addEvent } from "../../redux/slices/usersSlice";
 
 type EventParticipationModalProps = {
   show: boolean;
@@ -15,11 +23,43 @@ export default function EventParticipationModal({
 }: EventParticipationModalProps) {
   const [accept, setAccept] = useState(true);
   const [choice, setChoice] = useState(2);
+  const [carPlaces, setCarPlaces] = useState(2);
+  const [carOwner, setCarOwner] = useState<string | null>(null);
+  const [selectedValues, setSelectedValues] = useState<string[]>([]);
   const radioLabels = [
     "Je prévois de conduire et d'offrir des places dans ma voiture",
     "Je prévois de participer et je recherche un covoiturage",
     "Je vais m'arranger par moi-même",
   ];
+  const eventId = `${event.id_manif}_${event.date}_${event.heure_debut}`;
+
+  const eventData = useAppSelector((state) =>
+    state.events.find((_event) => _event.eventId === eventId)
+  );
+
+  const availableCars = eventData?.cars.filter(
+    (car) => car.remainingPlaces > 0
+  );
+
+  const username = useAppSelector((state) => state.auth.username);
+
+  const dispatch = useAppDispatch();
+
+  const isAlreadyParticipant =
+    username != undefined &&
+    (eventData?.participants.disallowShare.includes(username) ||
+      eventData?.participants.onTheirOwn.includes(username) ||
+      eventData?.participants.shareOtherCar.includes(username) ||
+      eventData?.participants.takeOwnCar.includes(username));
+
+  const usersLookingForCar = eventData?.participants.shareOtherCar.filter(
+    (user) =>
+      !eventData.cars
+        .map((car) => car.users)
+        .flat()
+        .includes(user)
+  );
+  console.log(usersLookingForCar);
 
   return (
     <Modal show={show} onHide={handleClose} size="lg" centered>
@@ -64,22 +104,39 @@ export default function EventParticipationModal({
                     id="inputNbPlaces"
                     pattern="[1-4]"
                     placeholder="Nombre de places (entre 1 et 4)"
+                    value={carPlaces}
+                    onChange={(e) => setCarPlaces(+e.target.value)}
                   />
                 </FloatingLabel>
-                <Form.Select multiple>
+                <Form.Select
+                  multiple
+                  onChange={() => {
+                    setSelectedValues(
+                      usersLookingForCar?.slice(0, carPlaces) ?? []
+                    );
+                  }}
+                >
                   <option disabled>En liste d'attente</option>
-                  <option value="1">Alex</option>
-                  <option value="2">Chris</option>
-                  <option value="3">Fantine</option>
+                  {usersLookingForCar &&
+                    usersLookingForCar.map((user, index) => (
+                      <option key={user + index} value={user}>
+                        {user}
+                      </option>
+                    ))}
                 </Form.Select>
               </>
             )}
             {choice === 1 && (
-              <Form.Select>
-                <option disabled>Sélectionner co-voiturage</option>
-                <option value="1">Alex - places disponibles: 3</option>
-                <option value="2">Chris - places disponibles: 1</option>
-                <option value="3">Fantine - places disponibles: 2</option>
+              <Form.Select onChange={(e) => setCarOwner(e.target.value)}>
+                <option defaultChecked value={undefined}>
+                  Sélectionner co-voiturage
+                </option>
+                {availableCars &&
+                  availableCars.map((car, index) => (
+                    <option key={`car-${index}`} value={car.owner}>
+                      {car.owner} - places disponibles: {car.remainingPlaces}
+                    </option>
+                  ))}
               </Form.Select>
             )}
           </>
@@ -89,7 +146,38 @@ export default function EventParticipationModal({
         <Button variant="secondary" onClick={handleClose}>
           Fermer
         </Button>
-        <Button variant="primary" onClick={handleClose}>
+        <Button
+          variant="primary"
+          disabled={isAlreadyParticipant ?? false}
+          onClick={() => {
+            if (username) {
+              if (!accept) {
+                dispatch(participateAndDisallowShare({ eventId, username }));
+              } else if (choice == 2) {
+                dispatch(participateOnTheirOwn({ eventId, username }));
+              } else if (choice == 1) {
+                dispatch(
+                  participateAndShareOtherCar({
+                    eventId,
+                    username,
+                    carOwner: carOwner ?? undefined,
+                  })
+                );
+              } else {
+                dispatch(
+                  participateAndTakeOwnCar({
+                    eventId,
+                    username,
+                    carPlaces,
+                    carUsers: selectedValues,
+                  })
+                );
+              }
+              dispatch(addEvent({ event, username }));
+            }
+            handleClose();
+          }}
+        >
           Soumettre
         </Button>
       </Modal.Footer>
