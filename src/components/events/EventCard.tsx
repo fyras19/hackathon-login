@@ -18,7 +18,7 @@ export default function EventCard({ event }: EventCardProps) {
           {event.rubrique}
         </Card.Subtitle>
         <Card.Subtitle className="mb-2 text-muted">{event.date}</Card.Subtitle>
-        <Button variant="primary" onClick={() => navigate(eventId)}>Voir l'évènement</Button>
+        <Button variant="primary" onClick={() => navigate(`/events/${eventId}`)}>Voir l'évènement</Button>
       </Card.Body>
     </Card>
   );
