@@ -16,6 +16,11 @@ with app.app_context():
 
 # Default route, renders the index.html template
 @app.route("/")
+@app.route("/events")
+@app.route("/concept")
+@app.route("/login")
+@app.route("/register")
+@app.route("/myevents")
 def hello():
     return render_template('index.html')
 
@@ -173,4 +178,4 @@ def get_adresse_postale():
 # Main entry point of the application
 if __name__ == "__main__":
     port = int(os.environ.get("PORT", 5000))
-    app.run(host='0.0.0.0', port=port)
+    app.run(host='0.0.0.0', port=port, debug=True)
