@@ -3,6 +3,7 @@ import { Event } from "../../models/Event.model";
 import { useState } from "react";
 import EventParticipationModal from "./EventParticipationModal";
 import { useAppSelector } from "../../redux/hooks";
+import ListParticipantsModal from "./ListParticipantsModal";
 
 type EventDetailProps = {
   event: Event;
@@ -10,9 +11,13 @@ type EventDetailProps = {
 
 export default function EventDetail({ event }: EventDetailProps) {
   const [show, setShow] = useState(false);
+  const [showParticipants, setShowParticipants] = useState(false);
 
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
+
+  const handleCloseParticipants = () => setShowParticipants(false);
+  const handleShowParticipants = () => setShowParticipants(true);
 
   const { isAuthenticated } = useAppSelector((state) => state.auth);
 
@@ -20,20 +25,29 @@ export default function EventDetail({ event }: EventDetailProps) {
     <div className="d-flex flex-column align-items-center px-5">
       <h1>{event.nom}</h1>
       <Figure.Image src={event.media_url} />
-      <Button className="mb-1" disabled={!isAuthenticated}>
+      <Button
+        className="mb-1"
+        disabled={!isAuthenticated}
+        onClick={handleShowParticipants}
+      >
         Voir participants
       </Button>
       <Button onClick={handleShow} disabled={!isAuthenticated}>
         Je participe
       </Button>
-      {
-        !isAuthenticated && <p>
+      {!isAuthenticated && (
+        <p className="text-danger">
           Connectez-vous pour marquer votre participation
         </p>
-      }
+      )}
       <EventParticipationModal
         show={show}
         handleClose={handleClose}
+        event={event}
+      />
+      <ListParticipantsModal
+        show={showParticipants}
+        handleClose={handleCloseParticipants}
         event={event}
       />
       <p>
