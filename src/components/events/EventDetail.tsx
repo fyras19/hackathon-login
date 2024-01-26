@@ -26,6 +26,11 @@ export default function EventDetail({ event }: EventDetailProps) {
       <Button onClick={handleShow} disabled={!isAuthenticated}>
         Je participe
       </Button>
+      {
+        !isAuthenticated && <p>
+          Connectez-vous pour marquer votre participation
+        </p>
+      }
       <EventParticipationModal
         show={show}
         handleClose={handleClose}
