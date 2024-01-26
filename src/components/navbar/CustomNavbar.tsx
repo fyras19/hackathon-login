@@ -38,7 +38,7 @@ const CustomNavbar = () => {
             <NavLink className="mx-1 nav-link" to={"/"}>
               Acceuil
             </NavLink>
-            <NavLink className="mx-1 nav-link" to={"/aboutus"}>
+            <NavLink className="mx-1 nav-link" to={"/concept"}>
               Concept
             </NavLink>
             <NavLink className="mx-1 nav-link" to={"/events"}>
@@ -49,10 +49,14 @@ const CustomNavbar = () => {
               title={isAuthenticated ? username : "Utilisateur"}
               id="navbarScrollingDropdown"
             >
-              <NavDropdown.Item onClick={() => navigate("/myevents")}>
-                Mes évènements
-              </NavDropdown.Item>
-              <NavDropdown.Divider />
+              {isAuthenticated && (
+                <>
+                  <NavDropdown.Item onClick={() => navigate("/myevents")}>
+                    Mes évènements
+                  </NavDropdown.Item>
+                  <NavDropdown.Divider />
+                </>
+              )}
               {!isAuthenticated && (
                 <>
                   <NavDropdown.Item onClick={() => navigate("/login")}>

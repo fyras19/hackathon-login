@@ -24,9 +24,10 @@ export default function RegisterPage() {
         username,
         password,
         community: communityCode,
+        events: [],
       })
     );
-    navigate('/login')
+    navigate("/login");
   };
 
   return (

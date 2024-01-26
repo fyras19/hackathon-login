@@ -9,6 +9,8 @@ import EventsPage from "./pages/EventsPage.tsx";
 import EventPage from "./pages/EventPage.tsx";
 import LoginPage from "./pages/LoginPage.tsx";
 import RegisterPage from "./pages/RegisterPage.tsx";
+import ConceptPage from "./pages/ConceptPage.tsx";
+import MyEventsPage from "./pages/MyEventsPage.tsx";
 
 const router = createBrowserRouter([
   {
@@ -16,12 +18,8 @@ const router = createBrowserRouter([
     element: <App />,
     children: [
       {
-        path: "aboutus",
-        element: (
-          <>
-            <h1>About us</h1>
-          </>
-        ),
+        path: "concept",
+        element: <ConceptPage />,
       },
       {
         path: "/",
@@ -45,11 +43,7 @@ const router = createBrowserRouter([
       },
       {
         path: "/myevents",
-        element: (
-          <>
-            <h1>Mes évènements</h1>
-          </>
-        ),
+        element: <MyEventsPage />,
       },
     ],
   },

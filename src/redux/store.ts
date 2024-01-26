@@ -2,12 +2,14 @@ import { configureStore } from "@reduxjs/toolkit";
 import selectionReducer from "./slices/selectionSlice";
 import usersReducer from "./slices/usersSlice";
 import authReducer from "./slices/authSlice";
+import eventsReducer from "./slices/eventsSlice";
 
 export const store = configureStore({
     reducer: {
         selection: selectionReducer,
         users: usersReducer,
-        auth: authReducer
+        auth: authReducer,
+        events: eventsReducer
     }
 })
 

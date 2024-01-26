@@ -1,4 +1,5 @@
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
+import { Event } from "../../models/Event.model";
 
 export type User = {
     firstname: string,
@@ -6,7 +7,8 @@ export type User = {
     email: string,
     password: string,
     username: string,
-    community: string
+    community: string,
+    events: Event[]
 }
 
 const initialState: User[] = []
@@ -25,10 +27,14 @@ export const usersSlice = createSlice({
                 state.push(action.payload)
                 localStorage.setItem("users", JSON.stringify(state))
             }
+        },
+        addEvent: (state, action: PayloadAction<{ username: string, event: Event }>) => {
+            state.find(user => user.username === action.payload.username)?.events.push(action.payload.event);
+            localStorage.setItem("users", JSON.stringify(state))
         }
     }
 })
 
-export const { addUser } = usersSlice.actions;
+export const { addUser, addEvent } = usersSlice.actions;
 
 export default usersSlice.reducer;
